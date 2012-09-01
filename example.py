@@ -11,5 +11,13 @@ from credentials import *#credentials.py should define consumer_secret and consu
 myfb=fb.Fitbit(consumer_key,consumer_secret)
 user_info = myfb.get_user_info()
 print user_info
-user_measurements=myfb.get_body_measurements()
+
+#if no date is specified, retrieves user's measurements on the current day
+user_measurements=myfb.get_body_measurements('2012-08-01')
 print user_measurements
+
+#user_weight=myfb.get_body_weight(start_date='2012-08-01',end_date='2012-09-01')
+#user_weight=myfb.get_body_weight(base_date='2012-08-29',period='7d') #base_date acts as end date when period is specified
+#user_weight=myfb.get_body_weight(date='2012-08-25')
+user_weight=myfb.get_body_weight()#use current date when no argument is given
+print user_weight

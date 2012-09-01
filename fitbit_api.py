@@ -93,15 +93,47 @@ class Fitbit:
                 header_auth=True)
         return response.content
 
-    def get_body_measurements(self,user_id=None,date=datetime.datetime.now()):
+    def get_body_measurements(self,date=None,user_id=None):
         """Returns user's physical measurements, i.e. waist,bicep, chest, BMI,etc. """
         #set user_id=='-' to indicate the user currently authenticated via token credentials
-        date_string=date.strftime('%Y-%m-%d')
+        if date is None:
+            date = datetime.datetime.now().strftime('%Y-%m-%d')
+        
         if user_id is None:
             user_id='-'
         params={}
         response=self.oauth.get(
-                'http://api.fitbit.com/1/user/%s/body/date/%s.json' % (user_id,date_string),
+                'http://api.fitbit.com/1/user/%s/body/date/%s.json' % (user_id,date),
+                params=params,
+                access_token=self.access_token,
+                access_token_secret=self.access_token_secret,
+                header_auth=True)
+        return response.content
+
+    #just make it take a date in the form 2012-09-01
+    def get_body_weight(self,user_id=None,**kwargs):
+        """Returns user's body weight"""
+        #set user_id=='-' to indicate the user currently authenticated via token credentials
+        if user_id is None:
+            user_id='-'
+        params={}
+        if kwargs.get('base_date') is not None and kwargs.get('end_date') is not None:
+            start_string=kwargs.get('base_date')
+            end_string=kwargs.get('end_date')
+            url_string='http://api.fitbit.com/1/user/%s/body/log/weight/date/%s/%s.json' % (user_id,start_string,end_string)
+        elif kwargs.get('base_date') is not None and kwargs.get('period') in ['1d','7d','30d','1w','1m']:
+            start_string=kwargs.get('base_date')
+            url_string='http://api.fitbit.com/1/user/%s/body/log/weight/date/%s/%s.json' % (user_id,start_string,kwargs.get('period'))
+        elif kwargs.get('date') is not None:
+            date_string=kwargs.get('date')
+            url_string='http://api.fitbit.com/1/user/%s/body/log/weight/date/%s.json' % (user_id,date_string)
+        else:
+            date_string=datetime.datetime.now().strftime('%Y-%m-%d')
+            url_string='http://api.fitbit.com/1/user/%s/body/log/weight/date/%s.json' % (user_id,date_string)
+
+        print "url_string is ",url_string
+        response=self.oauth.get(
+                url_string,
                 params=params,
                 access_token=self.access_token,
                 access_token_secret=self.access_token_secret,
