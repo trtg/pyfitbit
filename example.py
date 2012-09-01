@@ -11,3 +11,5 @@ from credentials import *#credentials.py should define consumer_secret and consu
 myfb=fb.Fitbit(consumer_key,consumer_secret)
 user_info = myfb.get_user_info()
 print user_info
+user_measurements=myfb.get_body_measurements()
+print user_measurements

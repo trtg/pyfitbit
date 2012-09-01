@@ -81,6 +81,7 @@ class Fitbit:
     def get_user_info(self,user_id=None):
         """Returns user profile info such as height, unit preference, timezone, stride length,etc. """
         #set user_id=='-' to indicate the user currently authenticated via token credentials
+        #note that regardless of what weightUnit is set to, the value of 'weight' is returned in kg
         if user_id is None:
             user_id='-'
         params={}
@@ -92,4 +93,18 @@ class Fitbit:
                 header_auth=True)
         return response.content
 
+    def get_body_measurements(self,user_id=None,date=datetime.datetime.now()):
+        """Returns user's physical measurements, i.e. waist,bicep, chest, BMI,etc. """
+        #set user_id=='-' to indicate the user currently authenticated via token credentials
+        date_string=date.strftime('%Y-%m-%d')
+        if user_id is None:
+            user_id='-'
+        params={}
+        response=self.oauth.get(
+                'http://api.fitbit.com/1/user/%s/body/date/%s.json' % (user_id,date_string),
+                params=params,
+                access_token=self.access_token,
+                access_token_secret=self.access_token_secret,
+                header_auth=True)
+        return response.content
 
