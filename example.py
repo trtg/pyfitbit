@@ -37,3 +37,6 @@ print "get_heart_rate is ",user_heart_rate
 user_blood_pressure = myfb.get_blood_pressure() 
 print "get_blood_pressure is ",user_blood_pressure
 
+user_glucose = myfb.get_glucose() 
+print "get_glucose is ",user_glucose
+
