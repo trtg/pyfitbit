@@ -34,3 +34,6 @@ print "get_sleep is ",user_sleep
 user_heart_rate = myfb.get_heart_rate() 
 print "get_heart_rate is ",user_heart_rate
 
+user_blood_pressure = myfb.get_blood_pressure() 
+print "get_blood_pressure is ",user_blood_pressure
+

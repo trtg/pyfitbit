@@ -163,7 +163,7 @@ class Fitbit:
         return response.content
 
     def get_heart_rate(self,date=None,user_id=None):
-        """Returns raw JSON of user's sleep for the requested date or the current date if none is specified """
+        """Returns raw JSON of user's heart rate for the requested date or the current date if none is specified """
         #set user_id=='-' to indicate the user currently authenticated via token credentials
         if date is None:
             date = datetime.datetime.now().strftime('%Y-%m-%d')
@@ -173,6 +173,23 @@ class Fitbit:
         params={}
         response=self.oauth.get(
                 'http://api.fitbit.com/1/user/%s/heart/date/%s.json' % (user_id,date),
+                params=params,
+                access_token=self.access_token,
+                access_token_secret=self.access_token_secret,
+                header_auth=True)
+        return response.content
+
+    def get_blood_pressure(self,date=None,user_id=None):
+        """Returns raw JSON of user's blood pressure for the requested date or the current date if none is specified """
+        #set user_id=='-' to indicate the user currently authenticated via token credentials
+        if date is None:
+            date = datetime.datetime.now().strftime('%Y-%m-%d')
+        
+        if user_id is None:
+            user_id='-'
+        params={}
+        response=self.oauth.get(
+                'http://api.fitbit.com/1/user/%s/bp/date/%s.json' % (user_id,date),
                 params=params,
                 access_token=self.access_token,
                 access_token_secret=self.access_token_secret,
