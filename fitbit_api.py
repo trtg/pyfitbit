@@ -4,6 +4,7 @@ import time
 import datetime 
 #get your own consumer key and secret after registering a desktop app here: 
 #https://dev.fitbit.com/apps/new
+#for more details on the API: https://wiki.fitbit.com/display/API/Fitbit+Resource+Access+API
 
 class Fitbit:
     def __init__(self,consumer_key,consumer_secret,verbose=0,cache_name='tokens.dat'):
@@ -108,6 +109,24 @@ class Fitbit:
                 access_token=self.access_token,
                 access_token_secret=self.access_token_secret,
                 header_auth=True)
+        return response.content
+
+    def get_activities(self,date=None,user_id=None):
+        """Returns raw JSON of user's activities for the requested date or the current date if none is specified """
+        #set user_id=='-' to indicate the user currently authenticated via token credentials
+        if date is None:
+            date = datetime.datetime.now().strftime('%Y-%m-%d')
+        
+        if user_id is None:
+            user_id='-'
+        params={}
+        response=self.oauth.get(
+                'http://api.fitbit.com/1/user/%s/activities/date/%s.json' % (user_id,date),
+                params=params,
+                access_token=self.access_token,
+                access_token_secret=self.access_token_secret,
+                header_auth=True)
+        print response.content
         return response.content
 
     #just make it take a date in the form 2012-09-01
