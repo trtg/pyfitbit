@@ -24,3 +24,6 @@ print "get_body_weight is ",user_weight
 
 user_activities = myfb.get_activities() 
 print "get_activities is ",user_activities
+
+user_foods = myfb.get_foods() 
+print "get_foods is ",user_foods
