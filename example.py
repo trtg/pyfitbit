@@ -43,3 +43,6 @@ print "get_glucose is ",user_glucose
 user_water = myfb.get_water() 
 print "get_water is ",user_water
 
+user_body_fat = myfb.get_body_fat(date='2012-09-07') 
+print "get_body_fat is ",user_body_fat
+

@@ -16,17 +16,28 @@ date parameter is optional, defaults to current date. user_id parameter is optio
 ###get_foods
 date parameter is optional, defaults to current date. user_id parameter is optional, defaults to the currently authenticated user.
 
+###get_water
+date parameter is optional, defaults to current date. user_id parameter is optional, defaults to the currently authenticated user.
+
 ###get_sleep
+date parameter is optional, defaults to current date. user_id parameter is optional, defaults to the currently authenticated user.
+
 ###get_heart_rate
+date parameter is optional, defaults to current date. user_id parameter is optional, defaults to the currently authenticated user.
+
 ###get_blood_pressure
+date parameter is optional, defaults to current date. user_id parameter is optional, defaults to the currently authenticated user.
+
 ###get_glucose
+date parameter is optional, defaults to current date. user_id parameter is optional, defaults to the currently authenticated user.
 
 ###get_body_weight(self,user_id=None,**kwargs):
 Takes optional keyword arguments:
 date,base_date, end_date, and period
 
-###get_water
-###get_body_fat
+###get_body_fat(self,user_id=None,**kwargs):
+Takes optional keyword arguments:
+date,base_date, end_date, and period
 
 #Logging and Deleting Collection Data
 
