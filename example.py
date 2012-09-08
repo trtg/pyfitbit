@@ -27,3 +27,7 @@ print "get_activities is ",user_activities
 
 user_foods = myfb.get_foods() 
 print "get_foods is ",user_foods
+
+user_sleep = myfb.get_sleep() 
+print "get_sleep is ",user_sleep
+

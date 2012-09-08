@@ -145,6 +145,23 @@ class Fitbit:
                 header_auth=True)
         return response.content
 
+    def get_sleep(self,date=None,user_id=None):
+        """Returns raw JSON of user's sleep for the requested date or the current date if none is specified """
+        #set user_id=='-' to indicate the user currently authenticated via token credentials
+        if date is None:
+            date = datetime.datetime.now().strftime('%Y-%m-%d')
+        
+        if user_id is None:
+            user_id='-'
+        params={}
+        response=self.oauth.get(
+                'http://api.fitbit.com/1/user/%s/sleep/date/%s.json' % (user_id,date),
+                params=params,
+                access_token=self.access_token,
+                access_token_secret=self.access_token_secret,
+                header_auth=True)
+        return response.content
+
     #just make it take a date in the form 2012-09-01
     def get_body_weight(self,user_id=None,**kwargs):
         """Returns user's body weight"""
