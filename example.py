@@ -31,3 +31,6 @@ print "get_foods is ",user_foods
 user_sleep = myfb.get_sleep() 
 print "get_sleep is ",user_sleep
 
+user_heart_rate = myfb.get_heart_rate() 
+print "get_heart_rate is ",user_heart_rate
+
