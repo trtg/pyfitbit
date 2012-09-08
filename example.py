@@ -40,3 +40,6 @@ print "get_blood_pressure is ",user_blood_pressure
 user_glucose = myfb.get_glucose() 
 print "get_glucose is ",user_glucose
 
+user_water = myfb.get_water() 
+print "get_water is ",user_water
+
