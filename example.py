@@ -51,5 +51,8 @@ print "get_water is ",user_water
 user_body_fat = myfb.get_body_fat(date='2012-09-07') 
 print "get_body_fat is ",user_body_fat
 
-
+#activityName can contain contain spaces
+#startTime and durationMillis are required. either activityName (if defining a custom activity) 
+#or activityId must be specified. If activityName is specified, then manualCalories must also be specified
+myfb.log_activity(startTime="11:12",durationMillis="120000",activityName="brushing teeth",manualCalories="5")
 

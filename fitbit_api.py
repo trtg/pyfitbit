@@ -319,3 +319,33 @@ class Fitbit:
                 header_auth=True)
         return response.content
 
+    def log_activity(self,date=None,user_id=None,**kwargs):
+        """logs user's activities"""
+        if not (kwargs.get('startTime') and kwargs.get('durationMillis')):
+            print "You must specify startTime and durationMillis"
+            return
+
+        #set user_id=='-' to indicate the user currently authenticated via token credentials
+        if date is None:
+            date = datetime.datetime.now().strftime('%Y-%m-%d')
+        
+        if user_id is None:
+            user_id='-'
+
+        params={}
+        #in this method, date is a parameter, not part of the URL
+        params['date'] = date
+        VALID_PARAMETERS=["activityId","activityName","manualCalories","startTime","durationMillis","distance","distanceUnit"]
+
+        for meas in kwargs:
+            if meas in VALID_PARAMETERS:
+                params[str(meas)] = kwargs.get(meas)
+
+        response=self.oauth.post(
+                'http://api.fitbit.com/1/user/%s/activities.json' % (user_id),
+                params=params,
+                access_token=self.access_token,
+                access_token_secret=self.access_token_secret,
+                header_auth=True)
+        return response.content
+
