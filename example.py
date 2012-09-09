@@ -12,8 +12,13 @@ myfb=fb.Fitbit(consumer_key,consumer_secret)
 user_info = myfb.get_user_info()
 print user_info
 
+#Record your body measurements, valid measurements are:
+#["bicep","calf","chest","fat","forearm","hips","neck","thigh","waist","weight","date"]
+myfb.log_body_measurements(bicep="19",waist="28")
+
 #if no date is specified, retrieves user's measurements on the current day
-user_measurements=myfb.get_body_measurements('2012-08-01')
+#user_measurements=myfb.get_body_measurements('2012-08-01')
+user_measurements=myfb.get_body_measurements()
 print user_measurements
 
 #user_weight = myfb.get_body_weight(start_date='2012-08-01',end_date='2012-09-01')
@@ -45,4 +50,6 @@ print "get_water is ",user_water
 
 user_body_fat = myfb.get_body_fat(date='2012-09-07') 
 print "get_body_fat is ",user_body_fat
+
+
 

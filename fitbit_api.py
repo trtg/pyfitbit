@@ -293,3 +293,29 @@ class Fitbit:
                 header_auth=True)
         return response.content
 
+    def log_body_measurements(self,date=None,user_id=None,**kwargs):
+        """logs user's physical measurements, i.e. waist,bicep, chest, BMI,etc. """
+        #set user_id=='-' to indicate the user currently authenticated via token credentials
+        if date is None:
+            date = datetime.datetime.now().strftime('%Y-%m-%d')
+        
+        if user_id is None:
+            user_id='-'
+
+        params={}
+        #in this method, date is a parameter, not part of the URL
+        params['date'] = date
+        VALID_BODY_MEASUREMENTS=["bicep","calf","chest","fat","forearm","hips","neck","thigh","waist","weight","date"]
+
+        for meas in kwargs:
+            if meas in VALID_BODY_MEASUREMENTS:
+                params[str(meas)] = kwargs.get(meas)
+
+        response=self.oauth.post(
+                'http://api.fitbit.com/1/user/%s/body.json' % (user_id),
+                params=params,
+                access_token=self.access_token,
+                access_token_secret=self.access_token_secret,
+                header_auth=True)
+        return response.content
+
